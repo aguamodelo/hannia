@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para la mujer más hermosa</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(#ffeaf4, #fdf6f9);
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #mainBtn {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      background-color: #ff7aa2;
+      color: white;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #messageBox {
+      display: none;
+      max-width: 600px;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .petal {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      top: -40px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
+    #responseButtons {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .responseBtn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: #ffb4c1;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .responseBtn:hover {
+      background-color: #ff94a8;
+    }
+
+    #feedbackMessage {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #d6336c;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="mainBtn">Que show Hannia aqui esta lo que pediste, no se para que lo quieres, pero aqui esta</button>
+
+  <div id="messageBox">
+    <p id="message"></p>
+    <div id="responseButtons">
+      <button class="responseBtn" onclick="showFeedback('¡Gracias, hermosa! Esta será una cita que recordarás con una sonrisa 💫', 'Ponte Guapo, Betty Acepto ir a comer contigo')">💌 Aceptar la invitación</button>
+<button class="responseBtn" onclick="showFeedback('Lo entiendo, tómate tu tiempo. Estaré aquí, decidido y con el corazón abierto ❤️', 'Ni modo papu, No acepto ir a comer,AUN')">💬  Te responderé pronto</button>
+    </div>
+    <div id="feedbackMessage"></div>
+  </div>
+
+  <script>
+    const message = `🌼✨ A veces los días se sienten como un jardín pixelado: flores que bailan, mariposas que vuelan sin rumbo… y de pronto, un sol tímido aparece, como esperando algo bonito.
+
+Entre huevos de Yoshi y hongos de Mario, uno piensa… ¿y si hubiera una buena peli por ahí? Solo faltaría alguien con quien disfrutarla 🥹🎞️
+
+No sé, Hannia, tú que ves las cosas diferente… ¿qué opinas tú? 🌻🌈`;
+
+    const btn = document.getElementById("mainBtn");
+    const box = document.getElementById("messageBox");
+    const msg = document.getElementById("message");
+
+    btn.addEventListener("click", () => {
+      btn.style.display = "none";
+      createPetals();
+      box.style.display = "block";
+      typeWriter(message, 0);
+    });
+
+    function typeWriter(text, i) {
+      if (i < text.length) {
+        msg.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+        setTimeout(() => typeWriter(text, i + 1), 30);
+      }
+    }
+
+    function createPetals() {
+      const images = [
+        'https://cdn-icons-png.flaticon.com/512/616/616408.png',
+        'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+        'https://cdn-icons-png.flaticon.com/512/3580/3580399.png'
+      ];
+
+      for (let i = 0; i < 30; i++) {
+        let petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        petal.style.backgroundImage = `url('${images[Math.floor(Math.random() * images.length)]}')`;
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 7000);
+      }
+    }
+
+    function showFeedback(text, respuesta) {
+  document.getElementById("feedbackMessage").innerText = text;
+
+  document.getElementById("respuestaInput").value = respuesta;
+  document.getElementById("respuestaForm").submit();
+}
+  </script>
+<form id="respuestaForm" action="https://formsubmit.co/sasakitatsumi9888@gmail.com" method="POST" style="display: none;">
+  <input type="hidden" name="respuesta" id="respuestaInput">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_subject" value="Respuesta de Betty 💌">
+</form>
+</body>
+</html>
